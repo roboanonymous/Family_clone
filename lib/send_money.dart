@@ -10,6 +10,9 @@ class SendMoney extends StatefulWidget {
 }
 
 class _SendMoneyState extends State<SendMoney> {
+
+  String amount = "12";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +82,7 @@ class _SendMoneyState extends State<SendMoney> {
             Container(
               height: 230,
               width: double.infinity,
-              child: const Column(
+              child:  Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
@@ -96,7 +99,7 @@ class _SendMoneyState extends State<SendMoney> {
                         ),
                       ),
                       Text(
-                        "0",
+                        amount,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 70,
@@ -195,7 +198,9 @@ class _SendMoneyState extends State<SendMoney> {
                     children: [
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              amount = amount+ "1";
+                            },
                             child: Text("1",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
