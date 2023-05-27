@@ -1,3 +1,4 @@
+import 'package:family_clone/keypad.dart';
 import 'package:flutter/material.dart';
 import 'package:family_clone/send_money.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SendMoney(),
+      home: KeyPad(7356),
     );
   }
 }
