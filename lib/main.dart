@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: KeyPad(7356),
+      home: KeyPad(726),
     );
   }
 }

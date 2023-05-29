@@ -1,22 +1,49 @@
 import 'package:flutter/material.dart';
 
-class KeyPad extends StatelessWidget {
- KeyPad(this.num, {super.key});
+class KeyPad extends StatefulWidget {
+  KeyPad(this.num, {super.key});
   var num;
-  var amount;
-  //num = num*10; 
 
-  // String stringnum = num.toString();
   @override
-  Widget build(BuildContext context) { 
+  State<KeyPad> createState() => _KeyPadState();
+}
+
+class _KeyPadState extends State<KeyPad> {
+  var amount;
+
+  //num = num*10;
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
           children: [
-             Text("Keypad", style: TextStyle(fontSize: 25),),
-            Text(num.toString(), style: TextStyle(fontSize: 25),),
-             Text("Ammount", style: TextStyle(fontSize: 25),),
-              Text(num.toString(), style: TextStyle(fontSize: 25),),
+            Text(
+              "Keypad",
+              style: TextStyle(fontSize: 25),
+            ),
+            Text(
+              widget.num.toString(),
+              style: TextStyle(fontSize: 25),
+            ),
+            Text(
+              "Ammount",
+              style: TextStyle(fontSize: 25),
+            ),
+            Text(
+              widget.num.toString(),
+              style: TextStyle(fontSize: 25),
+            ),
+             TextField(
+            //  obscureText: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+              ),
+              style: TextStyle(fontSize: 24),
+              //autofocus: true,
+             // showCursor: true,
+            ),
           ],
         ),
       ),
