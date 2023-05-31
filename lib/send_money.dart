@@ -11,7 +11,29 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney> {
 
-  String amount = "12";
+   String amount = "0";
+   int num = 0;
+
+    updateText( int a) {
+      num = num*10 + a;
+      String newamount = num.toString();
+    setState(() {
+      
+      amount = newamount;
+      // Replace with your logic
+    });
+  }
+
+  void backspace() {
+
+     num = (num/10).floor();
+      String backamount = num.toString();
+    setState(() {
+      
+      amount = backamount;
+      // Replace with your logic
+    });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -99,12 +121,14 @@ class _SendMoneyState extends State<SendMoney> {
                         ),
                       ),
                       Text(
-                        amount,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 70,
-                            fontWeight: FontWeight.w900),
-                      )
+                          amount,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 50,
+                              fontWeight: FontWeight.w900),
+                        ),
+
+            
                     ],
                   ),
                   Row(
@@ -185,12 +209,10 @@ class _SendMoneyState extends State<SendMoney> {
             SizedBox(
               height: 20,
             ),
-            // Number Keyboard
+          //  Number Keyboard
             Container(
               height: 250,
               width: double.infinity,
-              //decoration: BoxDecoration(color: Colors.green),
-              // margin: EdgeInsets.only(left: 30, right: 30),
               child: Column(
                 children: [
                   Row(
@@ -198,9 +220,7 @@ class _SendMoneyState extends State<SendMoney> {
                     children: [
                       Container(
                         child: TextButton(
-                            onPressed: () {
-                              amount = amount+ "1";
-                            },
+                            onPressed: () => updateText(1),
                             child: Text("1",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -208,7 +228,7 @@ class _SendMoneyState extends State<SendMoney> {
                       Spacer(),
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                              onPressed: () => updateText(2),
                             child: Text("2",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -216,7 +236,8 @@ class _SendMoneyState extends State<SendMoney> {
                       Spacer(),
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                             onPressed: () => updateText(3),
+
                             child: Text("3",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -229,7 +250,7 @@ class _SendMoneyState extends State<SendMoney> {
                     children: [
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                             onPressed: () => updateText(4),
                             child: Text("4",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -237,7 +258,7 @@ class _SendMoneyState extends State<SendMoney> {
                       Spacer(),
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                          onPressed: () => updateText(5),
                             child: Text("5",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -245,7 +266,7 @@ class _SendMoneyState extends State<SendMoney> {
                       Spacer(),
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                              onPressed: () => updateText(6),
                             child: Text("6",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -258,7 +279,7 @@ class _SendMoneyState extends State<SendMoney> {
                     children: [
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                          onPressed: () => updateText(7),
                             child: Text("7",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -266,7 +287,7 @@ class _SendMoneyState extends State<SendMoney> {
                       Spacer(),
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                          onPressed: () => updateText(8),
                             child: Text("8",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -274,7 +295,7 @@ class _SendMoneyState extends State<SendMoney> {
                       Spacer(),
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                          onPressed: () => updateText(9),
                             child: Text("9",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -295,7 +316,7 @@ class _SendMoneyState extends State<SendMoney> {
                       Spacer(),
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                          onPressed: () => updateText(0),
                             child: Text("0",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -303,7 +324,7 @@ class _SendMoneyState extends State<SendMoney> {
                       Spacer(),
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: backspace,
                             child: Text("<",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),

@@ -34,19 +34,22 @@ class _KeyPadState extends State<KeyPad> {
               widget.num.toString(),
               style: TextStyle(fontSize: 25),
             ),
-             TextField(
+            const TextField(
             //  obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Password',
+                // controller: _controller,
               ),
+             
+
               style: TextStyle(fontSize: 24),
-              //autofocus: true,
-             // showCursor: true,
             ),
+            
           ],
         ),
       ),
     );
   }
+  
 }
