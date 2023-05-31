@@ -9,31 +9,65 @@ class SendMoney extends StatefulWidget {
   State<SendMoney> createState() => _SendMoneyState();
 }
 
-class _SendMoneyState extends State<SendMoney> {
+class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
 
-   String amount = "0";
-   int num = 0;
+    String amount = "0";
+  int num = 0;
+  bool decimalEntered = false;
+    int decimalPlaces = 0;
 
-    updateText( int a) {
-      num = num*10 + a;
-      String newamount = num.toString();
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _animation = Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+
+  void updateText(int a) {
+      num = num * 10 + a;
+    String newAmount = num.toString();
+
+      // Animate the transition
+    _animationController.reset();
+    _animationController.forward();
+    
     setState(() {
-      
-      amount = newamount;
-      // Replace with your logic
+      amount = newAmount;
     });
   }
 
   void backspace() {
-
-     num = (num/10).floor();
-      String backamount = num.toString();
+     
+    num = (num ~/ 10);
+    String backAmount = num.toString();
     setState(() {
-      
-      amount = backamount;
-      // Replace with your logic
+      amount = backAmount;
     });
-}
+  
+  }
+
+  void updateDecimal() {
+    if (!decimalEntered) {
+      decimalEntered = true;
+      setState(() {
+        amount += ".";
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -308,7 +342,7 @@ class _SendMoneyState extends State<SendMoney> {
                     children: [
                       Container(
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: updateDecimal,
                             child: Text(".",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
