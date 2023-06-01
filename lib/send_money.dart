@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class SendMoney extends StatefulWidget {
   const SendMoney({super.key});
@@ -9,12 +10,12 @@ class SendMoney extends StatefulWidget {
   State<SendMoney> createState() => _SendMoneyState();
 }
 
-class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
-
-    String amount = "0";
+class _SendMoneyState extends State<SendMoney>
+    with SingleTickerProviderStateMixin {
+  String amount = "0";
   int num = 0;
   bool decimalEntered = false;
-    int decimalPlaces = 0;
+  int decimalPlaces = 0;
 
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -26,7 +27,8 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    _animation = Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
+    _animation =
+        Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
   }
 
   @override
@@ -35,28 +37,25 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
     super.dispose();
   }
 
-
   void updateText(int a) {
-      num = num * 10 + a;
+    num = num * 10 + a;
     String newAmount = num.toString();
 
-      // Animate the transition
+    // Animate the transition
     _animationController.reset();
     _animationController.forward();
-    
+
     setState(() {
       amount = newAmount;
     });
   }
 
   void backspace() {
-     
     num = (num ~/ 10);
     String backAmount = num.toString();
     setState(() {
       amount = backAmount;
     });
-  
   }
 
   void updateDecimal() {
@@ -67,7 +66,6 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +136,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
             Container(
               height: 230,
               width: double.infinity,
-              child:  Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
@@ -149,40 +147,54 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
                         child: Text(
                           "\$ ",
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                              fontWeight: FontWeight.w900),
+                            color: Colors.white,
+                            fontSize: 50,
+                            fontWeight: FontWeight.w900,
+                          ),
                         ),
                       ),
-                      Text(
-                          amount,
+                      SizedBox(
+                        width: 250.0,
+                        child: DefaultTextStyle(
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                              fontWeight: FontWeight.w900),
+                          color: Colors.white,
+                          fontSize: 50,
+                          fontWeight: FontWeight.w900,
                         ),
-
-            
+                          child: AnimatedTextKit(
+                            animatedTexts: [
+                               RotateAnimatedText(amount),
+                              
+                            ],
+                            onTap: () {
+                              print("Tap Event");
+                            },
+                          ),
+                        ),
+                      ),
+                      // Text(
+                      //   amount,
+                      //   style: TextStyle(
+                      //     color: Colors.white,
+                      //     fontSize: 50,
+                      //     fontWeight: FontWeight.w900,
+                      //   ),
+                      // ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(CryptoFontIcons.ETH, color: Colors.white),
-                      SizedBox(
-                        width: 5,
+                      SizedBox(width: 5),
+                      Text(
+                        "0.00",
+                        style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
-                      Text("0.00",
-                          style: TextStyle(color: Colors.white, fontSize: 15)),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Icon(
-                        Icons.swap_vert,
-                        color: Colors.white,
-                      )
+                      SizedBox(width: 5),
+                      Icon(Icons.swap_vert, color: Colors.white),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -243,7 +255,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
             SizedBox(
               height: 20,
             ),
-          //  Number Keyboard
+            //  Number Keyboard
             Container(
               height: 250,
               width: double.infinity,
@@ -262,7 +274,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
                       Spacer(),
                       Container(
                         child: TextButton(
-                              onPressed: () => updateText(2),
+                            onPressed: () => updateText(2),
                             child: Text("2",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -270,8 +282,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
                       Spacer(),
                       Container(
                         child: TextButton(
-                             onPressed: () => updateText(3),
-
+                            onPressed: () => updateText(3),
                             child: Text("3",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -284,7 +295,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
                     children: [
                       Container(
                         child: TextButton(
-                             onPressed: () => updateText(4),
+                            onPressed: () => updateText(4),
                             child: Text("4",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -292,7 +303,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
                       Spacer(),
                       Container(
                         child: TextButton(
-                          onPressed: () => updateText(5),
+                            onPressed: () => updateText(5),
                             child: Text("5",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -300,7 +311,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
                       Spacer(),
                       Container(
                         child: TextButton(
-                              onPressed: () => updateText(6),
+                            onPressed: () => updateText(6),
                             child: Text("6",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -313,7 +324,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
                     children: [
                       Container(
                         child: TextButton(
-                          onPressed: () => updateText(7),
+                            onPressed: () => updateText(7),
                             child: Text("7",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -321,7 +332,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
                       Spacer(),
                       Container(
                         child: TextButton(
-                          onPressed: () => updateText(8),
+                            onPressed: () => updateText(8),
                             child: Text("8",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -329,7 +340,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
                       Spacer(),
                       Container(
                         child: TextButton(
-                          onPressed: () => updateText(9),
+                            onPressed: () => updateText(9),
                             child: Text("9",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
@@ -350,7 +361,7 @@ class _SendMoneyState extends State<SendMoney> with TickerProviderStateMixin{
                       Spacer(),
                       Container(
                         child: TextButton(
-                          onPressed: () => updateText(0),
+                            onPressed: () => updateText(0),
                             child: Text("0",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
