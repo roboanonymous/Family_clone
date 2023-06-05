@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 
 class SendMoney extends StatefulWidget {
   const SendMoney({super.key});
@@ -16,6 +15,7 @@ class _SendMoneyState extends State<SendMoney>
   int num = 0;
   bool decimalEntered = false;
   int decimalPlaces = 0;
+  int maxeth = 1000;
 
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -72,12 +72,12 @@ class _SendMoneyState extends State<SendMoney>
     return Scaffold(
       body: Container(
         color: Colors.black,
-        padding: EdgeInsets.fromLTRB(20, 40, 20, 20),
+        padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
         child: Column(
           children: [
             Row(
               children: [
-                Text(
+                const Text(
                   "Send",
                   style: TextStyle(
                       color: Colors.white,
@@ -93,37 +93,37 @@ class _SendMoneyState extends State<SendMoney>
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
               height: 40,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Color.fromARGB(121, 61, 61, 61),
+                color: const Color.fromARGB(121, 61, 61, 61),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
-                  Text(
+                  const Text(
                     "To",
                     style: TextStyle(
                         color: Color.fromARGB(255, 210, 210, 210),
                         fontSize: 15),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Container(
-                    padding: EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                       color: Color.fromARGB(255, 98, 98, 98),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Burner",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
@@ -142,7 +142,7 @@ class _SendMoneyState extends State<SendMoney>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 80,
                         child: Text(
                           "\$ ",
@@ -153,36 +153,17 @@ class _SendMoneyState extends State<SendMoney>
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 250.0,
-                        child: DefaultTextStyle(
-                          style: TextStyle(
+                      Text(
+                        amount,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 50,
                           fontWeight: FontWeight.w900,
                         ),
-                          child: AnimatedTextKit(
-                            animatedTexts: [
-                               RotateAnimatedText(amount),
-                              
-                            ],
-                            onTap: () {
-                              print("Tap Event");
-                            },
-                          ),
-                        ),
                       ),
-                      // Text(
-                      //   amount,
-                      //   style: TextStyle(
-                      //     color: Colors.white,
-                      //     fontSize: 50,
-                      //     fontWeight: FontWeight.w900,
-                      //   ),
-                      // ),
                     ],
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(CryptoFontIcons.ETH, color: Colors.white),
@@ -214,18 +195,18 @@ class _SendMoneyState extends State<SendMoney>
                   Container(
                     height: 40,
                     width: 40,
-                    decoration: BoxDecoration(
-                        image: const DecorationImage(
+                    decoration: const BoxDecoration(
+                        image:  DecorationImage(
                           image: AssetImage("assets/images/ethereum.png"),
                           fit: BoxFit.fill,
                         ),
                         color: Color.fromARGB(255, 98, 98, 98),
                         shape: BoxShape.circle),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
-                  Column(
+                  const Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Ethereum",
@@ -234,7 +215,7 @@ class _SendMoneyState extends State<SendMoney>
                           style: TextStyle(color: Colors.white, fontSize: 15))
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 80,
                   ),
                   TextButton(
@@ -246,13 +227,13 @@ class _SendMoneyState extends State<SendMoney>
                             borderRadius: BorderRadius.circular(10.0)),
                       ),
                       onPressed: () {},
-                      child: Text("Use Max",
+                      child: const Text("Use Max",
                           style: TextStyle(color: Colors.white, fontSize: 15))),
                 ],
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             //  Number Keyboard
