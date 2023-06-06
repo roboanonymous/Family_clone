@@ -1,6 +1,9 @@
-import 'dart:math';
-import 'package:crypto_font_icons/crypto_font_icons.dart';
+import 'package:family_clone/eth_error.dart';
 import 'package:flutter/material.dart';
+import 'package:family_clone/blocs/max_error/max_error_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:family_clone/blocs/max_error/max_error_state.dart';
+
 
 class SendMoney extends StatefulWidget {
   const SendMoney({super.key});
@@ -16,6 +19,7 @@ class _SendMoneyState extends State<SendMoney>
   bool decimalEntered = false;
   int decimalPlaces = 0;
   int maxeth = 1000;
+  late MaxErrorBloc _maxErrorBloc;
 
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -23,6 +27,7 @@ class _SendMoneyState extends State<SendMoney>
   @override
   void initState() {
     super.initState();
+   _maxErrorBloc = BlocProvider.of<MaxErrorBloc>(context); 
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
@@ -33,9 +38,11 @@ class _SendMoneyState extends State<SendMoney>
 
   @override
   void dispose() {
+    _maxErrorBloc.close();
     _animationController.dispose();
     super.dispose();
   }
+
 
   void updateText(int a) {
     num = num * 10 + a;
@@ -163,19 +170,19 @@ class _SendMoneyState extends State<SendMoney>
                       ),
                     ],
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(CryptoFontIcons.ETH, color: Colors.white),
-                      SizedBox(width: 5),
-                      Text(
-                        "0.00",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(Icons.swap_vert, color: Colors.white),
-                    ],
+                  BlocBuilder<MaxErrorBloc, MaxError>(
+                    builder: (context, state) {
+                      if (state is MaxErrorState) {
+                        return const MaximumError();
+                      }
+                       else {
+                        return const EthError();
+                        // return const MaximumError();
+                      }
+                    },
                   ),
+                  
+                  
                 ],
               ),
             ),
@@ -196,7 +203,7 @@ class _SendMoneyState extends State<SendMoney>
                     height: 40,
                     width: 40,
                     decoration: const BoxDecoration(
-                        image:  DecorationImage(
+                        image: DecorationImage(
                           image: AssetImage("assets/images/ethereum.png"),
                           fit: BoxFit.fill,
                         ),
