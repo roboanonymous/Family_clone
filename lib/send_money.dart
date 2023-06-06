@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:family_clone/blocs/max_error/max_error_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:family_clone/blocs/max_error/max_error_state.dart';
-
+import 'package:family_clone/keypad.dart';
 
 class SendMoney extends StatefulWidget {
   const SendMoney({super.key});
@@ -27,7 +27,6 @@ class _SendMoneyState extends State<SendMoney>
   @override
   void initState() {
     super.initState();
-   _maxErrorBloc = BlocProvider.of<MaxErrorBloc>(context); 
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
@@ -38,11 +37,10 @@ class _SendMoneyState extends State<SendMoney>
 
   @override
   void dispose() {
-    _maxErrorBloc.close();
+    // _maxErrorBloc.close();
     _animationController.dispose();
     super.dispose();
   }
-
 
   void updateText(int a) {
     num = num * 10 + a;
@@ -174,15 +172,12 @@ class _SendMoneyState extends State<SendMoney>
                     builder: (context, state) {
                       if (state is MaxErrorState) {
                         return const MaximumError();
-                      }
-                       else {
+                      } else {
                         return const EthError();
                         // return const MaximumError();
                       }
                     },
                   ),
-                  
-                  
                 ],
               ),
             ),
@@ -252,87 +247,33 @@ class _SendMoneyState extends State<SendMoney>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: TextButton(
-                            onPressed: () => updateText(1),
-                            child: Text("1",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      ),
+                      Keypad(keys: "1"),
                       Spacer(),
-                      Container(
-                        child: TextButton(
-                            onPressed: () => updateText(2),
-                            child: Text("2",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      ),
+                     Keypad(keys: "2"),
                       Spacer(),
-                      Container(
-                        child: TextButton(
-                            onPressed: () => updateText(3),
-                            child: Text("3",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      )
+                      Keypad(keys: "3"),
                     ],
                   ),
                   Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: TextButton(
-                            onPressed: () => updateText(4),
-                            child: Text("4",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      ),
+                     Keypad(keys: "4"),
                       Spacer(),
-                      Container(
-                        child: TextButton(
-                            onPressed: () => updateText(5),
-                            child: Text("5",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      ),
+                      Keypad(keys: "5"),
                       Spacer(),
-                      Container(
-                        child: TextButton(
-                            onPressed: () => updateText(6),
-                            child: Text("6",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      )
+                      Keypad(keys: "6"),
                     ],
                   ),
                   Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: TextButton(
-                            onPressed: () => updateText(7),
-                            child: Text("7",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      ),
+                      Keypad(keys: "7"),
                       Spacer(),
-                      Container(
-                        child: TextButton(
-                            onPressed: () => updateText(8),
-                            child: Text("8",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      ),
+                      Keypad(keys: "8"),
                       Spacer(),
-                      Container(
-                        child: TextButton(
-                            onPressed: () => updateText(9),
-                            child: Text("9",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      )
+                      Keypad(keys: "9"),
                     ],
                   ),
                   Spacer(),
@@ -347,13 +288,7 @@ class _SendMoneyState extends State<SendMoney>
                                     color: Colors.white, fontSize: 30))),
                       ),
                       Spacer(),
-                      Container(
-                        child: TextButton(
-                            onPressed: () => updateText(0),
-                            child: Text("0",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      ),
+                      Keypad(keys: "0"),
                       Spacer(),
                       Container(
                         child: TextButton(

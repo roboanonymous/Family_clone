@@ -6,21 +6,20 @@ class EthError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(CryptoFontIcons.ETH, color: Colors.white),
-                      SizedBox(width: 5),
-                      Text(
-                        "0.00",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(Icons.swap_vert, color: Colors.white),
-                    ],
-                  );
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(CryptoFontIcons.ETH, color: Colors.white),
+        SizedBox(width: 5),
+        Text(
+          "0.00",
+          style: TextStyle(color: Colors.white, fontSize: 15),
+        ),
+        SizedBox(width: 5),
+        Icon(Icons.swap_vert, color: Colors.white),
+      ],
+    );
   }
-
 }
 
 class MaximumError extends StatelessWidget {
@@ -28,7 +27,9 @@ class MaximumError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Not Enough ETH", style: TextStyle(color: Colors.red, fontSize: 15),);
+    return Text(
+      "Not Enough ETH",
+      style: TextStyle(color: Colors.red, fontSize: 15),
+    );
   }
-
 }
