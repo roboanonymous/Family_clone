@@ -14,63 +14,60 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney>
     with SingleTickerProviderStateMixin {
-  String amount = "0";
-  int num = 0;
+  String amount = "";
   bool decimalEntered = false;
-  int decimalPlaces = 0;
-  int maxeth = 1000;
-  late MaxErrorBloc _maxErrorBloc;
 
-  late AnimationController _animationController;
-  late Animation<double> _animation;
+  int maxeth = 1000;
+  // late MaxErrorBloc _maxErrorBloc;
+
+  //late AnimationController _animationController;
+ // late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _animation =
-        Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
+    // _animationController = AnimationController(
+    //   vsync: this,
+    //   duration: const Duration(milliseconds: 300),
+    // );
+    // _animation =
+    //     Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
   }
 
   @override
   void dispose() {
     // _maxErrorBloc.close();
-    _animationController.dispose();
+    // _animationController.dispose();
     super.dispose();
   }
 
-  void updateText(int a) {
-    num = num * 10 + a;
-    String newAmount = num.toString();
+  void updateText(String a) {
 
     // Animate the transition
-    _animationController.reset();
-    _animationController.forward();
+    // _animationController.reset();
+    // _animationController.forward();
 
     setState(() {
-      amount = newAmount;
+      amount = amount+a;
     });
   }
 
-  void backspace() {
-    num = (num ~/ 10);
-    String backAmount = num.toString();
-    setState(() {
-      amount = backAmount;
-    });
-  }
+  // void backspace() {
+  //   num = (num ~/ 10);
+  //   String backAmount = num.toString();
+  //   setState(() {
+  //     amount = backAmount;
+  //   });
+  // }
 
-  void updateDecimal() {
-    if (!decimalEntered) {
-      decimalEntered = true;
-      setState(() {
-        amount += ".";
-      });
-    }
-  }
+  // void updateDecimal() {
+  //   if (!decimalEntered) {
+  //     decimalEntered = true;
+  //     setState(() {
+  //       amount += ".";
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -247,33 +244,78 @@ class _SendMoneyState extends State<SendMoney>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Keypad(keys: "1" , updatebutton: updateText(1),),
+                      Keypad(
+                        keys: "1",
+                        onPressed: () {
+                          updateText("1");
+                        },
+                      ),
                       Spacer(),
-                     Keypad(keys: "2", ),
+                      Keypad(
+                        keys: "2",
+                        onPressed: () {
+                          updateText("2");
+                        },
+                      ),
                       Spacer(),
-                      Keypad(keys: "3"),
+                      Keypad(
+                        keys: "3",
+                        onPressed: () {
+                          updateText("3");
+                        },
+                      ),
                     ],
                   ),
                   Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                     Keypad(keys: "4"),
+                       Keypad(
+                        keys: "4",
+                        onPressed: () {
+                          updateText("4");
+                        },
+                      ),
                       Spacer(),
-                      Keypad(keys: "5"),
+                       Keypad(
+                        keys: "5",
+                        onPressed: () {
+                          updateText("5");
+                        },
+                      ),
                       Spacer(),
-                      Keypad(keys: "6"),
+                       Keypad(
+                        keys: "6",
+                        onPressed: () {
+                          updateText("6");
+                        },
+                      ),
                     ],
                   ),
                   Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Keypad(keys: "7"),
+                       Keypad(
+                        keys: "7",
+                        onPressed: () {
+                          updateText("7");
+                        },
+                      ),
                       Spacer(),
-                      Keypad(keys: "8"),
+                       Keypad(
+                        keys: "8",
+                        onPressed: () {
+                          updateText("8");
+                        },
+                      ),
                       Spacer(),
-                      Keypad(keys: "9"),
+                       Keypad(
+                        keys: "9",
+                        onPressed: () {
+                          updateText("9");
+                        },
+                      ),
                     ],
                   ),
                   Spacer(),
@@ -282,17 +324,22 @@ class _SendMoneyState extends State<SendMoney>
                     children: [
                       Container(
                         child: TextButton(
-                            onPressed: updateDecimal,
+                            onPressed: (){},
                             child: Text(".",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
                       ),
                       Spacer(),
-                      Keypad(keys: "0"),
+                       Keypad(
+                        keys: "0",
+                        onPressed: () {
+                          updateText("0");
+                        },
+                      ),
                       Spacer(),
                       Container(
                         child: TextButton(
-                            onPressed: backspace,
+                            onPressed: (){},
                             child: Text("<",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 30))),
