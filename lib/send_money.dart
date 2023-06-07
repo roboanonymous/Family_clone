@@ -247,9 +247,9 @@ class _SendMoneyState extends State<SendMoney>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Keypad(keys: "1"),
+                      Keypad(keys: "1" , updatebutton: updateText(1),),
                       Spacer(),
-                     Keypad(keys: "2"),
+                     Keypad(keys: "2", ),
                       Spacer(),
                       Keypad(keys: "3"),
                     ],
