@@ -16,12 +16,11 @@ class _SendMoneyState extends State<SendMoney>
     with SingleTickerProviderStateMixin {
   String amount = "";
   bool decimalEntered = false;
-
   int maxeth = 1000;
   // late MaxErrorBloc _maxErrorBloc;
 
   //late AnimationController _animationController;
- // late Animation<double> _animation;
+  // late Animation<double> _animation;
 
   @override
   void initState() {
@@ -42,32 +41,35 @@ class _SendMoneyState extends State<SendMoney>
   }
 
   void updateText(String a) {
-
     // Animate the transition
     // _animationController.reset();
     // _animationController.forward();
 
     setState(() {
-      amount = amount+a;
+      amount = amount + a;
     });
   }
 
-  // void backspace() {
-  //   num = (num ~/ 10);
-  //   String backAmount = num.toString();
-  //   setState(() {
-  //     amount = backAmount;
-  //   });
-  // }
+  void backspace() {
+    if (amount[amount.length - 1] == ".") {
+      decimalEntered = false;
+    }
+    setState(() {
+      amount = amount.substring(0, amount.length - 1);
+    });
+  }
 
-  // void updateDecimal() {
-  //   if (!decimalEntered) {
-  //     decimalEntered = true;
-  //     setState(() {
-  //       amount += ".";
-  //     });
-  //   }
-  // }
+  void updateDecimal() {
+    setState(() {
+      if (decimalEntered == false) {
+        amount += ".";
+        decimalEntered = true;
+      }
+      else{
+        amount = amount;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -270,21 +272,21 @@ class _SendMoneyState extends State<SendMoney>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Keypad(
+                      Keypad(
                         keys: "4",
                         onPressed: () {
                           updateText("4");
                         },
                       ),
                       Spacer(),
-                       Keypad(
+                      Keypad(
                         keys: "5",
                         onPressed: () {
                           updateText("5");
                         },
                       ),
                       Spacer(),
-                       Keypad(
+                      Keypad(
                         keys: "6",
                         onPressed: () {
                           updateText("6");
@@ -296,21 +298,21 @@ class _SendMoneyState extends State<SendMoney>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Keypad(
+                      Keypad(
                         keys: "7",
                         onPressed: () {
                           updateText("7");
                         },
                       ),
                       Spacer(),
-                       Keypad(
+                      Keypad(
                         keys: "8",
                         onPressed: () {
                           updateText("8");
                         },
                       ),
                       Spacer(),
-                       Keypad(
+                      Keypad(
                         keys: "9",
                         onPressed: () {
                           updateText("9");
@@ -322,28 +324,26 @@ class _SendMoneyState extends State<SendMoney>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        child: TextButton(
-                            onPressed: (){},
-                            child: Text(".",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
+                      Keypad(
+                        keys: ".",
+                        onPressed: () {
+                          updateDecimal();
+                        },
                       ),
                       Spacer(),
-                       Keypad(
+                      Keypad(
                         keys: "0",
                         onPressed: () {
                           updateText("0");
                         },
                       ),
                       Spacer(),
-                      Container(
-                        child: TextButton(
-                            onPressed: (){},
-                            child: Text("<",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 30))),
-                      )
+                      Keypad(
+                        keys: "<",
+                        onPressed: () {
+                          backspace();
+                        },
+                      ),
                     ],
                   ),
                 ],
