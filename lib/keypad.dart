@@ -9,7 +9,9 @@ class Keypad extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: TextButton(
-        onPressed: () { onPressed();},
+        onPressed: () {
+          onPressed();
+        },
         child: Text(keys, style: TextStyle(color: Colors.white, fontSize: 30)),
       ),
     );

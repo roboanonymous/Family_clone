@@ -1,5 +1,5 @@
-abstract class MaxError {}
+abstract class MaxErroringState {}
 
-class MaxErrorInitialState extends MaxError {}
+class MaxErrorState extends MaxErroringState {}
 
-class MaxErrorState extends MaxError {}
+class NotMaxErrorState extends MaxErroringState {}

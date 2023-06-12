@@ -64,8 +64,7 @@ class _SendMoneyState extends State<SendMoney>
       if (decimalEntered == false) {
         amount += ".";
         decimalEntered = true;
-      }
-      else{
+      } else {
         amount = amount;
       }
     });
@@ -167,7 +166,7 @@ class _SendMoneyState extends State<SendMoney>
                       ),
                     ],
                   ),
-                  BlocBuilder<MaxErrorBloc, MaxError>(
+                  BlocBuilder<MaxErrorBloc, MaxErroringState>(
                     builder: (context, state) {
                       if (state is MaxErrorState) {
                         return const MaximumError();
