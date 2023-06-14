@@ -1,6 +1,13 @@
 part of 'send_money_bloc.dart';
 
 @immutable
-abstract class SendMoneyState {}
+ class SendMoneyState {
+  final String username;
+  final String dollarAmount;
+  final String EthAmount;
+  final String conversionCurreny;
+  final String balance;
 
-class SendMoneyInitial extends SendMoneyState {}
+  SendMoneyState(this.username, this.dollarAmount, this.EthAmount, this.conversionCurreny, this.balance);
+}
+
