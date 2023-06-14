@@ -1,6 +1,6 @@
+import 'package:family_clone/blocs/send_money/send_money_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:family_clone/send_money.dart';
-import 'package:family_clone/blocs/max_error/max_error_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MaxErrorBloc(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SendMoney(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: BlocProvider(
+        create: (context) => SendMoneyBloc(),
+        child: const SendMoney(),
       ),
     );
   }

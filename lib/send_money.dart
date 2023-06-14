@@ -1,9 +1,12 @@
-import 'package:family_clone/eth_error.dart';
+import 'package:family_clone/blocs/send_money/send_money_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:family_clone/blocs/max_error/max_error_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:family_clone/blocs/max_error/max_error_state.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+
+// import 'package:family_clone/blocs/send_money/send_money_bloc.dart';
+
 import 'package:family_clone/keypad.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:family_clone/eth_error.dart';
 
 class SendMoney extends StatefulWidget {
   const SendMoney({super.key});
@@ -14,11 +17,6 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney>
     with SingleTickerProviderStateMixin {
-  String amount = "";
-  bool decimalEntered = false;
-  int maxeth = 1000;
-  // late MaxErrorBloc _maxErrorBloc;
-
   //late AnimationController _animationController;
   // late Animation<double> _animation;
 
@@ -35,7 +33,6 @@ class _SendMoneyState extends State<SendMoney>
 
   @override
   void dispose() {
-    // _maxErrorBloc.close();
     // _animationController.dispose();
     super.dispose();
   }
@@ -44,31 +41,27 @@ class _SendMoneyState extends State<SendMoney>
     // Animate the transition
     // _animationController.reset();
     // _animationController.forward();
-
-    setState(() {
-      amount = amount + a;
-    });
   }
 
-  void backspace() {
-    if (amount[amount.length - 1] == ".") {
-      decimalEntered = false;
-    }
-    setState(() {
-      amount = amount.substring(0, amount.length - 1);
-    });
-  }
+  // void backspace() {
+  //   if (amount[amount.length - 1] == ".") {
+  //     decimalEntered = false;
+  //   }
+  //   setState(() {
+  //     amount = amount.substring(0, amount.length - 1);
+  //   });
+  // }
 
-  void updateDecimal() {
-    setState(() {
-      if (decimalEntered == false) {
-        amount += ".";
-        decimalEntered = true;
-      } else {
-        amount = amount;
-      }
-    });
-  }
+  // void updateDecimal() {
+  //   setState(() {
+  //     if (decimalEntered == false) {
+  //       amount += ".";
+  //       decimalEntered = true;
+  //     } else {
+  //       amount = amount;
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,10 +80,10 @@ class _SendMoneyState extends State<SendMoney>
                       fontSize: 25,
                       fontWeight: FontWeight.bold),
                 ),
-                Spacer(),
+                const Spacer(),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                   iconSize: 30,
                   color: Colors.white,
                 ),
@@ -123,7 +116,7 @@ class _SendMoneyState extends State<SendMoney>
                   Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 98, 98, 98),
+                      color: const Color.fromARGB(255, 98, 98, 98),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: const Text(
@@ -136,7 +129,7 @@ class _SendMoneyState extends State<SendMoney>
             ),
 
             // Ammount
-            Container(
+            SizedBox(
               height: 230,
               width: double.infinity,
               child: Column(
@@ -156,26 +149,30 @@ class _SendMoneyState extends State<SendMoney>
                           ),
                         ),
                       ),
-                      Text(
-                        amount,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 50,
-                          fontWeight: FontWeight.w900,
-                        ),
+                      BlocBuilder<SendMoneyBloc, SendMoneyState>(
+                        builder: (context, state) {
+                          return Text(
+                            state.dollarAmount,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 50,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
-                  BlocBuilder<MaxErrorBloc, MaxErroringState>(
-                    builder: (context, state) {
-                      if (state is MaxErrorState) {
-                        return const MaximumError();
-                      } else {
-                        return const EthError();
-                        // return const MaximumError();
-                      }
-                    },
-                  ),
+                  // BlocBuilder<MaxErrorBloc, MaxErroringState>(
+                  //   builder: (context, state) {
+                  //     if (state is MaxErrorState) {
+                  //       return const MaximumError();
+                  //     } else {
+                  //       return const EthError();
+                  //       // return const MaximumError();
+                  //     }
+                  //   },
+                  // ),
                 ],
               ),
             ),
@@ -184,12 +181,12 @@ class _SendMoneyState extends State<SendMoney>
               height: 70,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Color.fromARGB(121, 61, 61, 61),
+                color: const Color.fromARGB(121, 61, 61, 61),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Row(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Container(
@@ -220,13 +217,17 @@ class _SendMoneyState extends State<SendMoney>
                   ),
                   TextButton(
                       style: TextButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 98, 98, 98),
-                        padding: EdgeInsets.symmetric(
+                        backgroundColor: const Color.fromARGB(255, 98, 98, 98),
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 5.0, vertical: 2.0),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        context
+                            .read<SendMoneyBloc>()
+                            .add(const SendMoneyUseMaxAmountEvent());
+                      },
                       child: const Text("Use Max",
                           style: TextStyle(color: Colors.white, fontSize: 15))),
                 ],
@@ -237,7 +238,7 @@ class _SendMoneyState extends State<SendMoney>
               height: 20,
             ),
             //  Number Keyboard
-            Container(
+            SizedBox(
               height: 250,
               width: double.infinity,
               child: Column(
@@ -248,17 +249,23 @@ class _SendMoneyState extends State<SendMoney>
                       Keypad(
                         keys: "1",
                         onPressed: () {
-                          updateText("1");
+                          // updateText("1");
+                          context
+                              .read<SendMoneyBloc>()
+                              .add(const SendMoneyKeyPressEvent(keyValue: '1'));
                         },
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Keypad(
                         keys: "2",
                         onPressed: () {
-                          updateText("2");
+                          // updateText("2");
+                          context
+                              .read<SendMoneyBloc>()
+                              .add(const SendMoneyKeyPressEvent(keyValue: '2'));
                         },
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Keypad(
                         keys: "3",
                         onPressed: () {
@@ -267,7 +274,7 @@ class _SendMoneyState extends State<SendMoney>
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -277,14 +284,14 @@ class _SendMoneyState extends State<SendMoney>
                           updateText("4");
                         },
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Keypad(
                         keys: "5",
                         onPressed: () {
                           updateText("5");
                         },
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Keypad(
                         keys: "6",
                         onPressed: () {
@@ -293,7 +300,7 @@ class _SendMoneyState extends State<SendMoney>
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -303,14 +310,14 @@ class _SendMoneyState extends State<SendMoney>
                           updateText("7");
                         },
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Keypad(
                         keys: "8",
                         onPressed: () {
                           updateText("8");
                         },
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Keypad(
                         keys: "9",
                         onPressed: () {
@@ -319,28 +326,28 @@ class _SendMoneyState extends State<SendMoney>
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Keypad(
                         keys: ".",
                         onPressed: () {
-                          updateDecimal();
+                          // updateDecimal();
                         },
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Keypad(
                         keys: "0",
                         onPressed: () {
                           updateText("0");
                         },
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Keypad(
                         keys: "<",
                         onPressed: () {
-                          backspace();
+                          // backspace();
                         },
                       ),
                     ],
@@ -349,22 +356,22 @@ class _SendMoneyState extends State<SendMoney>
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             // Submit Button
             ElevatedButton(
               onPressed: () {},
-              child: Text(
-                "Continue",
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
-                padding:
-                    EdgeInsets.symmetric(horizontal: 120.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 120.0, vertical: 10.0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
+              ),
+              child: const Text(
+                "Continue",
+                style: TextStyle(color: Colors.black, fontSize: 18),
               ),
             ),
           ],
