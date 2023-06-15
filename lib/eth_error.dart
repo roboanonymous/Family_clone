@@ -1,12 +1,14 @@
+import 'package:family_clone/blocs/send_money/send_money_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_font_icons/crypto_font_icons.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EthError extends StatelessWidget {
   const EthError({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(CryptoFontIcons.ETH, color: Colors.white),
@@ -16,7 +18,9 @@ class EthError extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 15),
         ),
         SizedBox(width: 5),
-        Icon(Icons.swap_vert, color: Colors.white),
+        IconButton(onPressed: (){
+          context.read<SendMoneyBloc>().add(SendMoneyCurrencySwapEvent());
+        }, icon: Icon(Icons.swap_vert, color: Colors.white,))
       ],
     );
   }
