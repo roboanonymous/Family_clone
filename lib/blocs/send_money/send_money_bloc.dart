@@ -16,7 +16,9 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
   onSendMoneyInitializeEventHandler(
     SendMoneyInitializeEvent event,
     Emitter<SendMoneyState> emit,
-  ) {}
+  ) {
+    
+  }
 
   onSendMoneyCurrencySwapEventHandler(
     SendMoneyCurrencySwapEvent event,
@@ -33,7 +35,7 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
     SendMoneyUseMaxAmountEvent event,
     Emitter<SendMoneyState> emit,
   ) {
-    emit(state.copyWith(dollarAmount: state.balance));
+    emit(state.copyWith(ethAmount: state.balance));
   }
 
   onSendMoneyKeyPressEventHandler(
@@ -41,14 +43,37 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
     Emitter<SendMoneyState> emit,
   ) {
     final keyValue = event.keyValue;
-
     if (keyValue == '.') {
-    } else if (keyValue == '<') {
-    } else {}
+      if (state.decimalEntered == false) {
+        state.copyWith(dollarAmount: state.dollarAmount + keyValue);
+        state.copyWith(decimalEntered: true);
+      }
+    } 
+    else if (keyValue == '<') {
+      if (state.dollarAmount[state.dollarAmount.length - 1] == ".") {
+       
+        state.copyWith(decimalEntered: false);
+      }
+      state.copyWith(dollarAmount: state.dollarAmount.substring(0, state.dollarAmount.length - 1));
+    }
+    
+     else {
+      state.copyWith(dollarAmount: state.dollarAmount + keyValue);
+    }
+
+    if (int.parse(state.ethAmount) > int.parse(state.balance))
+    {
+       state.copyWith(maxerror: true);
+    }
+    else{
+      state.copyWith(maxerror: false);
+    }
   }
 
   onSendMoneySubmitEventHandler(
     SendMoneySubmitEvent event,
     Emitter<SendMoneyState> emit,
-  ) {}
+  ) {
+
+  }
 }

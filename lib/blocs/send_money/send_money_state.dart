@@ -1,12 +1,14 @@
 part of 'send_money_bloc.dart';
 
 class SendMoneyState extends Equatable {
-  const SendMoneyState({
-    this.username = '',
+  const SendMoneyState( {
+    this.username = 'Barner',
     this.dollarAmount = '',
-    this.ethAmount = '',
-    this.conversionCurrency = '',
-    this.balance = '',
+    this.ethAmount = '0.0',
+    this.conversionCurrency = 'dollar',
+    this.balance = '0.2419',
+    this.decimalEntered = false,
+    this.maxerror = false,
   });
 
   final String username;
@@ -14,6 +16,8 @@ class SendMoneyState extends Equatable {
   final String ethAmount;
   final String conversionCurrency;
   final String balance;
+  final bool decimalEntered;
+  final bool maxerror;
 
   SendMoneyState copyWith({
     String? username,
@@ -21,6 +25,8 @@ class SendMoneyState extends Equatable {
     String? ethAmount,
     String? conversionCurrency,
     String? balance,
+    bool? decimalEntered,
+    bool? maxerror,
   }) {
     return SendMoneyState(
       username: username ?? this.username,
@@ -28,6 +34,8 @@ class SendMoneyState extends Equatable {
       ethAmount: ethAmount ?? this.ethAmount,
       conversionCurrency: conversionCurrency ?? this.conversionCurrency,
       balance: balance ?? this.balance,
+      decimalEntered: decimalEntered ?? this.decimalEntered,
+      maxerror: maxerror ?? this.maxerror,
     );
   }
 
@@ -38,5 +46,6 @@ class SendMoneyState extends Equatable {
         ethAmount,
         conversionCurrency,
         balance,
+        maxerror,
       ];
 }

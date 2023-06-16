@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => SendMoneyBloc(),
-        child: const SendMoney(),
+    return BlocProvider(
+      create: (context) => SendMoneyBloc(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SendMoney(),
       ),
     );
   }
