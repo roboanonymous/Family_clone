@@ -13,16 +13,15 @@ class EthError extends StatelessWidget {
       children: [
         Icon(CryptoFontIcons.ETH, color: Colors.white),
         SizedBox(width: 5),
-        Text(
-          // if(state.conversionCurrency == "dollar")
-          // {
-          // state.ethAmount,
-          // }
-          // else{
-          //    state.dollarAmount,
-          // },
-          '',
-          style: TextStyle(color: Colors.white, fontSize: 15),
+        BlocBuilder<SendMoneyBloc, SendMoneyState>(
+          builder: (context, state) {
+            return Text(
+              state.conversionCurrency == "dollar"
+                  ? state.ethAmount
+                  : state.dollarAmount,
+              style: TextStyle(color: Colors.white, fontSize: 15),
+            );
+          },
         ),
         SizedBox(width: 5),
         IconButton(

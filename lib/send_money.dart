@@ -13,10 +13,7 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney>
     with SingleTickerProviderStateMixin {
-  String amount = "";
-  bool decimalEntered = false;
-  int maxeth = 1000;
-  // late MaxErrorBloc _maxErrorBloc;
+
 
   //late AnimationController _animationController;
   // late Animation<double> _animation;
@@ -162,14 +159,9 @@ class _SendMoneyState extends State<SendMoney>
                             ),
                           ),
                           Text(
-                            // if(state.conversionCurrency == "dollar")
-                            // {
-                            //   state.dollarAmount,
-                            // }
-                            // else{
-                            //   state.ethAmount,
-                            // }]
-                            '',
+                           
+                            state.conversionCurrency == "dollar" ? state.dollarAmount :  state.ethAmount,
+                            
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 50,
@@ -178,13 +170,8 @@ class _SendMoneyState extends State<SendMoney>
                           ),
                         ],
                       ),
-                      // if(state.maxerror){
-                      //   MaximumError(),
-                      // }
-                      // else
-                      // {
-                      //   EthError(),
-                      // },
+                      state.maxerror ? MaximumError() : EthError(),
+                      
                     ],
                   ),
                 );
