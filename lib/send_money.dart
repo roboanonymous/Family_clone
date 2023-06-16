@@ -162,7 +162,14 @@ class _SendMoneyState extends State<SendMoney>
                             ),
                           ),
                           Text(
-                            state.dollarAmount,
+                            // if(state.conversionCurrency == "dollar")
+                            // {
+                            //   state.dollarAmount,
+                            // }
+                            // else{
+                            //   state.ethAmount,
+                            // }]
+                            '',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 50,
@@ -171,7 +178,13 @@ class _SendMoneyState extends State<SendMoney>
                           ),
                         ],
                       ),
-                      const EthError(),
+                      // if(state.maxerror){
+                      //   MaximumError(),
+                      // }
+                      // else
+                      // {
+                      //   EthError(),
+                      // },
                     ],
                   ),
                 );

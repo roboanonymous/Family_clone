@@ -63,10 +63,10 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
 
     if (int.parse(state.ethAmount) > int.parse(state.balance))
     {
-       state.copyWith(maxerror: true);
+       emit(state.copyWith(maxerror: true));
     }
     else{
-      state.copyWith(maxerror: false);
+      emit(state.copyWith(maxerror: false));
     }
   }
 

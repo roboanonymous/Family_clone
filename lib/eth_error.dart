@@ -8,19 +8,31 @@ class EthError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(CryptoFontIcons.ETH, color: Colors.white),
         SizedBox(width: 5),
         Text(
-          "0.00",
+          // if(state.conversionCurrency == "dollar")
+          // {
+          // state.ethAmount,
+          // }
+          // else{
+          //    state.dollarAmount,
+          // },
+          '',
           style: TextStyle(color: Colors.white, fontSize: 15),
         ),
         SizedBox(width: 5),
-        IconButton(onPressed: (){
-          context.read<SendMoneyBloc>().add(SendMoneyCurrencySwapEvent());
-        }, icon: Icon(Icons.swap_vert, color: Colors.white,))
+        IconButton(
+            onPressed: () {
+              context.read<SendMoneyBloc>().add(SendMoneyCurrencySwapEvent());
+            },
+            icon: Icon(
+              Icons.swap_vert,
+              color: Colors.white,
+            ))
       ],
     );
   }
