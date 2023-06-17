@@ -13,8 +13,6 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney>
     with SingleTickerProviderStateMixin {
-
-
   //late AnimationController _animationController;
   // late Animation<double> _animation;
 
@@ -147,21 +145,10 @@ class _SendMoneyState extends State<SendMoney>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(
-                            height: 80,
-                            child: Text(
-                              "\$ ",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 50,
-                                fontWeight: FontWeight.w900,
-                              ),
-                            ),
-                          ),
                           Text(
-                           
-                            state.conversionCurrency == "dollar" ? state.dollarAmount :  state.ethAmount,
-                            
+                            state.conversionCurrency == "dollar"
+                                ? "\$ " + state.dollarAmount
+                                : state.ethAmount,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 50,
@@ -171,7 +158,6 @@ class _SendMoneyState extends State<SendMoney>
                         ],
                       ),
                       state.maxerror ? MaximumError() : EthError(),
-                      
                     ],
                   ),
                 );
@@ -391,22 +377,35 @@ class _SendMoneyState extends State<SendMoney>
               height: 20,
             ),
             // Submit Button
-            ElevatedButton(
-              onPressed: () {
-                context.read<SendMoneyBloc>().add(SendMoneySubmitEvent());
+             BlocBuilder<SendMoneyBloc, SendMoneyState>(
+              builder: (context, state) {
+                return ElevatedButton(
+                              onPressed: state.buttondisabled
+                                  ? (){}
+                                  : () {
+                                      context
+                                          .read<SendMoneyBloc>()
+                                          .add(SendMoneySubmitEvent());
+                                    },
+                              child: Text(
+                                "Continue",
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    state.buttondisabled ? Colors.grey : Colors.white,
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 120.0, vertical: 10.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                              ),
+                            );
               },
-              child: Text(
-                "Continue",
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                padding:
-                    EdgeInsets.symmetric(horizontal: 120.0, vertical: 10.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-              ),
             ),
+                
+              
+            
           ],
         ),
       ),

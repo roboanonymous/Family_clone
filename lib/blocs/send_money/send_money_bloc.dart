@@ -44,6 +44,7 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
     Emitter<SendMoneyState> emit,
   ) {
     final keyValue = event.keyValue;
+    
     if (keyValue == '.') {
       if (state.decimalEntered == false) {
         emit(state.copyWith(dollarAmount: state.dollarAmount + keyValue));
@@ -68,9 +69,16 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
     if (double.parse(state.ethAmount) > double.parse(state.balance))
     {
        emit(state.copyWith(maxerror: true));
+       emit(state.copyWith(buttondisabled: true));
     }
     else{
       emit(state.copyWith(maxerror: false));
+      emit(state.copyWith(buttondisabled: false));
+    }
+
+    if (int.parse(state.dollarAmount) == 0)
+    {
+       emit(state.copyWith(buttondisabled: true));
     }
   }
 

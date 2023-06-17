@@ -16,9 +16,9 @@ class EthError extends StatelessWidget {
         BlocBuilder<SendMoneyBloc, SendMoneyState>(
           builder: (context, state) {
             return Text(
-              state.conversionCurrency == "dollar"
+                 state.conversionCurrency == "dollar"
                   ? state.ethAmount
-                  : state.dollarAmount,
+                  : "\$ " + state.dollarAmount,
               style: TextStyle(color: Colors.white, fontSize: 15),
             );
           },
