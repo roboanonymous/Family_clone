@@ -13,56 +13,25 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney>
     with SingleTickerProviderStateMixin {
-  //late AnimationController _animationController;
-  // late Animation<double> _animation;
+    late AnimationController _animationController;
+    late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    // _animationController = AnimationController(
-    //   vsync: this,
-    //   duration: const Duration(milliseconds: 300),
-    // );
-    // _animation =
-    //     Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _animation =
+        Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
   }
 
   @override
   void dispose() {
-    // _maxErrorBloc.close();
-    // _animationController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
-
-  // void updateText(String a) {
-  //   // Animate the transition
-  //   // _animationController.reset();
-  //   // _animationController.forward();
-
-  //   setState(() {
-  //     amount = amount + a;
-  //   });
-  // }
-
-  // void backspace() {
-  //   if (amount[amount.length - 1] == ".") {
-  //     decimalEntered = false;
-  //   }
-  //   setState(() {
-  //     amount = amount.substring(0, amount.length - 1);
-  //   });
-  // }
-
-  // void updateDecimal() {
-  //   setState(() {
-  //     if (decimalEntered == false) {
-  //       amount += ".";
-  //       decimalEntered = true;
-  //     } else {
-  //       amount = amount;
-  //     }
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -377,35 +346,32 @@ class _SendMoneyState extends State<SendMoney>
               height: 20,
             ),
             // Submit Button
-             BlocBuilder<SendMoneyBloc, SendMoneyState>(
+            BlocBuilder<SendMoneyBloc, SendMoneyState>(
               builder: (context, state) {
                 return ElevatedButton(
-                              onPressed: state.buttondisabled
-                                  ? (){}
-                                  : () {
-                                      context
-                                          .read<SendMoneyBloc>()
-                                          .add(SendMoneySubmitEvent());
-                                    },
-                              child: Text(
-                                "Continue",
-                                style: TextStyle(color: Colors.black, fontSize: 18),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    state.buttondisabled ? Colors.grey : Colors.white,
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 120.0, vertical: 10.0),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                              ),
-                            );
+                  onPressed: state.buttondisabled
+                      ? () {}
+                      : () {
+                          context
+                              .read<SendMoneyBloc>()
+                              .add(SendMoneySubmitEvent());
+                        },
+                  child: Text(
+                    "Continue",
+                    style: TextStyle(color: Colors.black, fontSize: 18),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        state.buttondisabled ? Colors.grey : Colors.white,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 120.0, vertical: 10.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                );
               },
             ),
-                
-              
-            
           ],
         ),
       ),
