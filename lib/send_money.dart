@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:family_clone/blocs/send_money/send_money_bloc.dart';
 import 'package:family_clone/eth_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:family_clone/keypad.dart';
+import 'package:flutter/animation.dart';
 
 class SendMoney extends StatefulWidget {
   const SendMoney({super.key});
@@ -13,23 +16,30 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney>
     with SingleTickerProviderStateMixin {
-    late AnimationController _animationController;
-    late Animation<double> _animation;
+
+  late AnimationController _amountAnimationController;
+  late Animation<double> _amountAnimation;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
+
+    _amountAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    _animation =
-        Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
+    _amountAnimation =
+        Tween<double>(begin: 0, end: 1).animate(_amountAnimationController);
+
+
+    _amountAnimationController.reset();
+    _amountAnimationController.forward();
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    
+    _amountAnimationController.dispose();
     super.dispose();
   }
 
@@ -114,15 +124,22 @@ class _SendMoneyState extends State<SendMoney>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            state.conversionCurrency == "dollar"
-                                ? "\$ " + state.dollarAmount
-                                : state.ethAmount,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                              fontWeight: FontWeight.w900,
-                            ),
+                          AnimatedBuilder(
+                            animation: _amountAnimation,
+                            builder: (context, child) {
+                              return Text(
+                                state.conversionCurrency == "dollar"
+                                    ? "\$ " + state.dollarAmount
+                                    : state.ethAmount,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.w900,
+                                 
+                                  
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),

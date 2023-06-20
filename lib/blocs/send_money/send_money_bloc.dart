@@ -16,9 +16,7 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
   onSendMoneyInitializeEventHandler(
     SendMoneyInitializeEvent event,
     Emitter<SendMoneyState> emit,
-  ) {
-    
-  }
+  ) {}
 
   onSendMoneyCurrencySwapEventHandler(
     SendMoneyCurrencySwapEvent event,
@@ -36,56 +34,57 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
     Emitter<SendMoneyState> emit,
   ) {
     emit(state.copyWith(ethAmount: state.balance));
-    emit(state.copyWith(dollarAmount: (double.parse(state.ethAmount) * 1666).toString()));
+    emit(state.copyWith(
+        dollarAmount: (double.parse(state.ethAmount) * 1666).toString()));
   }
 
   onSendMoneyKeyPressEventHandler(
     SendMoneyKeyPressEvent event,
     Emitter<SendMoneyState> emit,
   ) {
+
+
+
     final keyValue = event.keyValue;
-    
+
     if (keyValue == '.') {
       if (state.decimalEntered == false) {
         emit(state.copyWith(dollarAmount: state.dollarAmount + keyValue));
-         emit(state.copyWith(ethAmount: (double.parse(state.dollarAmount) * 0.00060).toString()));
+        emit(state.copyWith(
+            ethAmount:
+                (double.parse(state.dollarAmount) * 0.00060).toString()));
         emit(state.copyWith(decimalEntered: true));
       }
-    } 
-    else if (keyValue == '<') {
+    } else if (keyValue == '<') {
       if (state.dollarAmount[state.dollarAmount.length - 1] == ".") {
-       
         emit(state.copyWith(decimalEntered: false));
       }
-      emit(state.copyWith(dollarAmount: state.dollarAmount.substring(0, state.dollarAmount.length - 1)));
-      emit(state.copyWith(ethAmount: (double.parse(state.dollarAmount) * 0.00060).toString()));
-    }
-    
-     else {
+      emit(state.copyWith(
+          dollarAmount:
+              state.dollarAmount.substring(0, state.dollarAmount.length - 1)));
+      emit(state.copyWith(
+          ethAmount: (double.parse(state.dollarAmount) * 0.00060).toString()));
+    } else {
       emit(state.copyWith(dollarAmount: state.dollarAmount + keyValue));
-      emit(state.copyWith(ethAmount: (double.parse(state.dollarAmount) * 0.00060).toString()));
+      emit(state.copyWith(
+          ethAmount: (double.parse(state.dollarAmount) * 0.00060).toString()));
     }
 
-    if (double.parse(state.ethAmount) > double.parse(state.balance))
-    {
-       emit(state.copyWith(maxerror: true));
-       emit(state.copyWith(buttondisabled: true));
-    }
-    else{
+    if (double.parse(state.ethAmount) > double.parse(state.balance)) {
+      emit(state.copyWith(maxerror: true));
+      emit(state.copyWith(buttondisabled: true));
+    } else {
       emit(state.copyWith(maxerror: false));
       emit(state.copyWith(buttondisabled: false));
     }
 
-    if (int.parse(state.dollarAmount) == 0)
-    {
-       emit(state.copyWith(buttondisabled: true));
+    if (int.parse(state.dollarAmount) == 0) {
+      emit(state.copyWith(buttondisabled: true));
     }
   }
 
   onSendMoneySubmitEventHandler(
     SendMoneySubmitEvent event,
     Emitter<SendMoneyState> emit,
-  ) {
-
-  }
+  ) {}
 }
