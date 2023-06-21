@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:family_clone/keypad.dart';
 import 'package:flutter/animation.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class SendMoney extends StatefulWidget {
   const SendMoney({super.key});
@@ -16,30 +17,27 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney>
     with SingleTickerProviderStateMixin {
-
-  late AnimationController _amountAnimationController;
-  late Animation<double> _amountAnimation;
+  // late AnimationController _amountAnimationController;
+  // late Animation<double> _amountAnimation;
 
   @override
   void initState() {
     super.initState();
 
-    _amountAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _amountAnimation =
-        Tween<double>(begin: 0, end: 1).animate(_amountAnimationController);
+    // _amountAnimationController = AnimationController(
+    //   vsync: this,
+    //   duration: const Duration(milliseconds: 300),
+    // );
+    // _amountAnimation =
+    //     Tween<double>(begin: 0, end: 1).animate(_amountAnimationController);
 
-
-    _amountAnimationController.reset();
-    _amountAnimationController.forward();
+    // _amountAnimationController.reset();
+    // _amountAnimationController.forward();
   }
 
   @override
   void dispose() {
-    
-    _amountAnimationController.dispose();
+    // _amountAnimationController.dispose();
     super.dispose();
   }
 
@@ -124,23 +122,36 @@ class _SendMoneyState extends State<SendMoney>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AnimatedBuilder(
-                            animation: _amountAnimation,
-                            builder: (context, child) {
-                              return Text(
+                          AnimatedTextKit(
+                            animatedTexts: [
+                               FlickerAnimatedText(
                                 state.conversionCurrency == "dollar"
                                     ? "\$ " + state.dollarAmount
                                     : state.ethAmount,
-                                style: TextStyle(
+                                textStyle: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 50,
                                   fontWeight: FontWeight.w900,
-                                 
-                                  
                                 ),
-                              );
-                            },
+                                 
+                               // speed: const Duration(milliseconds: 200),
+                              ),
+                            ],
+                            isRepeatingAnimation: true,
+                          
                           ),
+
+
+                          // Text(
+                          //   state.conversionCurrency == "dollar"
+                          //       ? "\$ " + state.dollarAmount
+                          //       : state.ethAmount,
+                          //   style: TextStyle(
+                          //     color: Colors.white,
+                          //     fontSize: 50,
+                          //     fontWeight: FontWeight.w900,
+                          //   ),
+                          // ),
                         ],
                       ),
                       state.maxerror ? MaximumError() : EthError(),
