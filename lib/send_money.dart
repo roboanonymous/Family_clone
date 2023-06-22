@@ -17,27 +17,20 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney>
     with SingleTickerProviderStateMixin {
-  // late AnimationController _amountAnimationController;
-  // late Animation<double> _amountAnimation;
+  // late AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-
-    // _amountAnimationController = AnimationController(
+    // _controller = AnimationController(
     //   vsync: this,
-    //   duration: const Duration(milliseconds: 300),
-    // );
-    // _amountAnimation =
-    //     Tween<double>(begin: 0, end: 1).animate(_amountAnimationController);
-
-    // _amountAnimationController.reset();
-    // _amountAnimationController.forward();
+    //   duration: const Duration(milliseconds: 500),
+    //   );
   }
 
   @override
   void dispose() {
-    // _amountAnimationController.dispose();
+    // _controller.dispose();
     super.dispose();
   }
 
@@ -138,10 +131,14 @@ class _SendMoneyState extends State<SendMoney>
                           AnimatedSwitcher(
                             duration: const Duration(milliseconds: 500),
                             transitionBuilder: (child, animation) {
-                              return FadeTransition(
-                                opacity: animation,
+                              return SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: const Offset(0.0, 0.5),
+                                  end: Offset.zero,
+                                ).animate(animation),
                                 child: child,
                               );
+                             
                             },
                             child: Text(
                               state.dollarAmountAnimated,
