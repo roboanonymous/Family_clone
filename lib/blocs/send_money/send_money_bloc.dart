@@ -43,8 +43,6 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
     Emitter<SendMoneyState> emit,
   ) {
 
-
-
     final keyValue = event.keyValue;
 
     if (keyValue == '.') {
@@ -81,6 +79,27 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
     if (int.parse(state.dollarAmount) == 0) {
       emit(state.copyWith(buttondisabled: true));
     }
+    
+    String initialamount = state.dollarAmount.substring(0, state.dollarAmount.length - 1) ;
+    String animatedamount = state.dollarAmount.substring(state.dollarAmount.length - 1) ;
+
+
+    if(state.dollarAmount.length == 0)
+    {
+      emit(state.copyWith(dollarAmountInitial: ""));
+      emit(state.copyWith(dollarAmountAnimated: state.dollarAmount));
+    }
+    else if(state.dollarAmount.length == 1){
+
+      emit(state.copyWith(dollarAmountInitial: ""));
+      emit(state.copyWith(dollarAmountAnimated: state.dollarAmount));
+
+    }
+    else{
+       emit(state.copyWith(dollarAmountInitial: initialamount));
+       emit(state.copyWith(dollarAmountAnimated: animatedamount));
+    }
+    
   }
 
   onSendMoneySubmitEventHandler(

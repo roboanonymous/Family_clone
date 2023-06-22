@@ -113,6 +113,9 @@ class _SendMoneyState extends State<SendMoney>
             // Ammount
             BlocBuilder<SendMoneyBloc, SendMoneyState>(
               builder: (context, state) {
+                print("Total" + state.dollarAmount);
+                print("Initial" + state.dollarAmountInitial);
+                print("Animated" + state.dollarAmountAnimated);
                 return Container(
                   height: 230,
                   width: double.infinity,
@@ -122,35 +125,49 @@ class _SendMoneyState extends State<SendMoney>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AnimatedTextKit(
-                            animatedTexts: [
-                               FlickerAnimatedText(
-                                state.conversionCurrency == "dollar"
-                                    ? "\$ " + state.dollarAmount
-                                    : state.ethAmount,
-                                textStyle: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                                 
-                               // speed: const Duration(milliseconds: 200),
+                          Text(
+                            state.conversionCurrency == "dollar"
+                                ? "\$ " + state.dollarAmountInitial
+                                : state.dollarAmount,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 50,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 500),
+                            transitionBuilder: (child, animation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
+                            child: Text(
+                              state.dollarAmountAnimated,
+                              key: ValueKey<String>(state.dollarAmountAnimated),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 50,
+                                fontWeight: FontWeight.w900,
                               ),
-                            ],
-                            isRepeatingAnimation: true,
-                          
+                            ),
                           ),
 
-
-                          // Text(
-                          //   state.conversionCurrency == "dollar"
-                          //       ? "\$ " + state.dollarAmount
-                          //       : state.ethAmount,
-                          //   style: TextStyle(
-                          //     color: Colors.white,
-                          //     fontSize: 50,
-                          //     fontWeight: FontWeight.w900,
-                          //   ),
+                          // AnimatedTextKit(
+                          //   animatedTexts: [
+                          //     FlickerAnimatedText(
+                          //       state.conversionCurrency == "dollar"
+                          //           ? state.dollarAmountAnimated
+                          //           : "",
+                          //       textStyle: const TextStyle(
+                          //         color: Colors.white,
+                          //         fontSize: 50,
+                          //         fontWeight: FontWeight.w900,
+                          //       ),
+                          //       speed: const Duration(milliseconds: 200),
+                          //     ),
+                          //   ],
                           // ),
                         ],
                       ),
