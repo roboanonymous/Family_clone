@@ -17,25 +17,41 @@ class SendMoney extends StatefulWidget {
 
 class _SendMoneyState extends State<SendMoney>
     with SingleTickerProviderStateMixin {
-  // late AnimationController _controller;
+  late AnimationController _animationController;
+  late Animation<Offset> _slideAnimation;
 
   @override
   void initState() {
     super.initState();
-    // _controller = AnimationController(
-    //   vsync: this,
-    //   duration: const Duration(milliseconds: 500),
-    //   );
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: Offset(1.0, 0.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
+
+    _animationController.forward();
+
+     _animationController.reset();
+                  _animationController.forward();
   }
 
   @override
   void dispose() {
-    // _controller.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    String oldDollarValue = "";
     return Scaffold(
       body: Container(
         color: Colors.black,
@@ -106,6 +122,11 @@ class _SendMoneyState extends State<SendMoney>
             // Ammount
             BlocBuilder<SendMoneyBloc, SendMoneyState>(
               builder: (context, state) {
+                // if (oldDollarValue == state.dollarAmount) {
+                //   _animationController.reset();
+                //   _animationController.forward();
+                // }
+                oldDollarValue = state.dollarAmount;
                 print("Total" + state.dollarAmount);
                 print("Initial" + state.dollarAmountInitial);
                 print("Animated" + state.dollarAmountAnimated);
@@ -128,6 +149,7 @@ class _SendMoneyState extends State<SendMoney>
                               fontWeight: FontWeight.w900,
                             ),
                           ),
+
                           AnimatedSwitcher(
                             duration: const Duration(milliseconds: 500),
                             transitionBuilder: (child, animation) {
@@ -138,7 +160,7 @@ class _SendMoneyState extends State<SendMoney>
                                 ).animate(animation),
                                 child: child,
                               );
-                             
+
                             },
                             child: Text(
                               state.dollarAmountAnimated,
@@ -151,20 +173,17 @@ class _SendMoneyState extends State<SendMoney>
                             ),
                           ),
 
-                          // AnimatedTextKit(
-                          //   animatedTexts: [
-                          //     FlickerAnimatedText(
-                          //       state.conversionCurrency == "dollar"
-                          //           ? state.dollarAmountAnimated
-                          //           : "",
-                          //       textStyle: const TextStyle(
-                          //         color: Colors.white,
-                          //         fontSize: 50,
-                          //         fontWeight: FontWeight.w900,
-                          //       ),
-                          //       speed: const Duration(milliseconds: 200),
+                          // SlideTransition(
+                          //   position: _slideAnimation,
+                          //   child: Text(
+                          //     // state.dollarAmountAnimated,
+                          //     "Test",
+                          //     style: const TextStyle(
+                          //       color: Colors.white,
+                          //       fontSize: 50,
+                          //       fontWeight: FontWeight.w900,
                           //     ),
-                          //   ],
+                          //   ),
                           // ),
                         ],
                       ),
